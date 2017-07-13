@@ -28,7 +28,6 @@ def inference():
     if FLAGS.multi_input is None:
         file_names = [FLAGS.single_input]
         batched_file_names = [file_names]
-        outfile_path = FLAGS.output_prefix
         outfile_path = ""
         input_path = ""
 
