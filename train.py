@@ -4,6 +4,7 @@ from reader import Reader
 from datetime import datetime
 import os
 import logging
+import uuid
 from utils import ImagePool
 
 FLAGS = tf.flags.FLAGS
@@ -65,7 +66,7 @@ def train():
     optimizers = cycle_gan.optimize(G_loss, D_Y_loss, F_loss, D_X_loss)
 
     summary_op = tf.summary.merge_all()
-    train_writer = tf.summary.FileWriter(checkpoints_dir, graph)
+    train_writer = tf.summary.FileWriter(checkpoints_dir + "/run_{}".format(uuid.uuid4()), graph)
     saver = tf.train.Saver()
 
   with tf.Session(graph=graph) as sess:
