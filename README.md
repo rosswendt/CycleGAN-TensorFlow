@@ -14,7 +14,7 @@ Examples of original artwork from the game can be viewed at http://imgur.com/a/U
 
 # Results
 
-![Partially trained](http://imgur.com/yC0pwwF.png)
+![Partially trained](http://imgur.com/GtIjquO.png)
 
 ![Fully trained](http://imgur.com/yC0pwwF.png)
 
