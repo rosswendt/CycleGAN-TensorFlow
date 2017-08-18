@@ -1,140 +1,26 @@
 # CycleGAN-TensorFlow
-An implementation of CycleGan using TensorFlow (work in progress).
+This is Ross Wendt's fork of the implementation of CycleGan using TensorFlow by Van Huyz (work in progress).
 
-Original paper: https://arxiv.org/abs/1703.10593
+Original CycleGAN paper: https://arxiv.org/abs/1703.10593
 
-## Results on test data
+# Application to games
 
-### apple -> orange
+The purpose of my application is to create additional stylized artwork for the PC game Hearts of Iron 4. Hand colored photos compiled by a member of the video game's community are paired with the the game's original artwork. In this way, additional artwork is made for the game.
 
-| Input | Output | | Input | Output | | Input | Output |
-|-------|--------|-|-------|--------|-|-------|--------|
-|![apple2orange_1](samples/real_apple2orange_1.jpg) | ![apple2orange_1](samples/fake_apple2orange_1.jpg)| |![apple2orange_2](samples/real_apple2orange_2.jpg) | ![apple2orange_2](samples/fake_apple2orange_2.jpg)| |![apple2orange_3](samples/real_apple2orange_3.jpg) | ![apple2orange_3](samples/fake_apple2orange_3.jpg)|
+Examples of original artwork from the game can be viewed at http://imgur.com/a/UYPkR.
 
+![Leader 1](http://imgur.com/a/UYPkR.png)
+![Leader 2](http://imgur.com/pBw6W1g.png)
 
-### orange -> apple
+# Results
 
-| Input | Output | | Input | Output | | Input | Output |
-|-------|--------|-|-------|--------|-|-------|--------|
-|![orange2apple_1](samples/real_orange2apple_1.jpg) | ![orange2apple_1](samples/fake_orange2apple_1.jpg)| |![orange2apple_2](samples/real_orange2apple_2.jpg) | ![orange2apple_2](samples/fake_orange2apple_2.jpg)| |![orange2apple_3](samples/real_orange2apple_3.jpg) | ![orange2apple_3](samples/fake_orange2apple_3.jpg)|
+![Partially trained](http://imgur.com/yC0pwwF.png)
 
-## Environment
+![Fully trained](http://imgur.com/yC0pwwF.png)
 
-* TensorFlow 1.0.0
-* Python 3.6.0
+Images involved in this application are historical photos of prominent individuals of World War 2, because the game is set in that period. The model was run with default parameters, and run for a duration roughly in line with the results from the original paper. Results of historical images before and after processing part way through the training process can be viewed at http://imgur.com/a/1rwpf. Note the black blotch artifact.
 
-## Data preparing
-
-* First, download a dataset, e.g. apple2orange
-
-```bash
-$ bash download_dataset.sh apple2orange
-```
-
-* Write the dataset to tfrecords
-
-```bash
-$ python3 build_data.py
-```
-
-Check `$ python3 build_data.py --help` for more details.
-
-## Training
-
-```bash
-$ python3 train.py
-```
-
-If you want to change some default settings, you can pass those to the command line, such as:
-
-```bash
-$ python3 train.py  \
-    --X=data/tfrecords/horse.tfrecords \
-    --Y=data/tfrecords/zebra.tfrecords
-```
-
-Here is the list of arguments:
-```
-usage: train.py [-h] [--batch_size BATCH_SIZE] [--image_size IMAGE_SIZE]
-                [--use_lsgan [USE_LSGAN]] [--nouse_lsgan]
-                [--norm NORM] [--lambda1 LAMBDA1] [--lambda2 LAMBDA2]
-                [--learning_rate LEARNING_RATE] [--beta1 BETA1]
-                [--pool_size POOL_SIZE] [--ngf NGF] [--X X] [--Y Y]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --batch_size BATCH_SIZE
-                        batch size, default: 1
-  --image_size IMAGE_SIZE
-                        image size, default: 256
-  --use_lsgan [USE_LSGAN]
-                        use lsgan (mean squared error) or cross entropy loss,
-                        default: True
-  --nouse_lsgan
-  --norm NORM           [instance, batch] use instance norm or batch norm,
-                        default: instance
-  --lambda1 LAMBDA1     weight for forward cycle loss (X->Y->X), default: 10.0
-  --lambda2 LAMBDA2     weight for backward cycle loss (Y->X->Y), default:
-                        10.0
-  --learning_rate LEARNING_RATE
-                        initial learning rate for Adam, default: 0.0002
-  --beta1 BETA1         momentum term of Adam, default: 0.5
-  --pool_size POOL_SIZE
-                        size of image buffer that stores previously generated
-                        images, default: 50
-  --ngf NGF             number of gen filters in first conv layer, default: 64
-  --X X                 X tfrecords file for training, default:
-                        data/tfrecords/apple.tfrecords
-  --Y Y                 Y tfrecords file for training, default:
-                        data/tfrecords/orange.tfrecords
-```
-
-Check TensorBoard to see training progress and generated images.
-
-```
-$ tensorboard --logdir checkpoints/${datetime}
-```
-
-Here are some funny screenshots from TensorBoard when training orange -> apple:
-
-![train_screenshot](samples/train_screenshot.png)
+Results after the full training duration can be viewed at http://imgur.com/a/qFt7o. Note the prominent artifacts, but without the black blotch.
 
 
-### Notes
-* If high constrast background colors between input and generated images are observed (e.g. black becomes white), you should restart your training!
-* Train several times to get the best models.
 
-## Export model
-You can export from a checkpoint to a standalone GraphDef file as follow:
-
-```bash
-$ python3 export_graph.py --checkpoint_dir checkpoints/${datetime} \
-                          --XtoY_model apple2orange.pb \
-                          --YtoX_model orange2apple.pb \
-                          --image_size 256
-```
-
-
-## Inference
-After exporting model, you can use it for inference. For example:
-
-```bash
-python3 inference.py --model pretrained/apple2orange.pb \
-                     --input input_sample.jpg \
-                     --output output_sample.jpg \
-                     --image_size 256
-```
-
-## Pretrained models
-My pretrained models are available at https://github.com/vanhuyz/CycleGAN-TensorFlow/releases
-
-## Contributing
-Please open an issue if you have any trouble or found anything incorrect in my code :)
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## References
-
-* CycleGAN paper: https://arxiv.org/abs/1703.10593
-* Official source code in Torch: https://github.com/junyanz/CycleGAN
