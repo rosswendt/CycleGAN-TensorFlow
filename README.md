@@ -22,5 +22,13 @@ Images involved in this application are historical photos of prominent individua
 
 Results after the full training duration can be viewed at http://imgur.com/a/qFt7o. Note the prominent artifacts, but without the black blotch.
 
+# Description of forks
+
+uuid_runs https://github.com/rosswendt/CycleGAN-TensorFlow/tree/uuid_runs adds a uuid tag to different runs, letting tensorboard be a bit happier.
+
+automated_inference https://github.com/rosswendt/CycleGAN-TensorFlow/tree/automated_inference is  a script for automatically running inference on a folder of files with command line support.
+
+
+
 
 
