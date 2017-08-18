@@ -9,7 +9,7 @@ The purpose of my application is to create additional stylized artwork for the P
 
 Examples of original artwork from the game can be viewed at http://imgur.com/a/UYPkR.
 
-![Leader 1](http://imgur.com/pBw6W1g.png)
+![Leader 1](http://imgur.com/Ubhqd3x.png)
 ![Leader 2](http://imgur.com/pBw6W1g.png)
 
 # Results
